@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <title>乐彩 · 知识库 | 信息聚合与导航</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #F4F8FB;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans SC', sans-serif;
+      color: #1C2E3F;
+      line-height: 1.65;
+      padding: 1.6rem 1.2rem;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    /* 容器 & 网格 */
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    @media (min-width: 600px) {
+      .grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (min-width: 860px) {
+      .grid-3 {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+    }
+
+    /* 卡片通用 */
+    .card {
+      background: #FFFFFF;
+      border-radius: 20px;
+      padding: 1.5rem 1.4rem;
+      box-shadow: 0 6px 14px rgba(0, 40, 60, 0.03), 0 1px 3px rgba(0, 32, 64, 0.04);
+      transition: box-shadow 0.2s;
+      border: 1px solid #E6EEF4;
+    }
+
+    .card:hover {
+      box-shadow: 0 10px 24px rgba(0, 90, 120, 0.08);
+    }
+
+    /* 标题体系 */
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: #0B2D3B;
+      margin-bottom: 0.4rem;
+      line-height: 1.2;
+    }
+
+    .subhead {
+      font-size: 1.05rem;
+      color: #3C5E6F;
+      margin-bottom: 2rem;
+      border-left: 4px solid #2C9B8F;
+      padding-left: 1rem;
+      background: linear-gradient(to right, #f0f9f7, transparent);
+    }
+
+    h2 {
+      font-size: 1.25rem;
+      font-weight: 500;
+      color: #114B5B;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    h2::before {
+      content: "▹";
+      color: #2C9B8F;
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+
+    h3 {
+      font-size: 1rem;
+      font-weight: 500;
+      color: #1F4D5C;
+      margin-bottom: 0.4rem;
+    }
+
+    /* 文字 & 链接 */
+    p {
+      margin-bottom: 0.9rem;
+      font-size: 0.98rem;
+    }
+
+    a {
+      color: #1A7A6E;
+      text-decoration: none;
+      font-weight: 500;
+      border-bottom: 1.5px solid transparent;
+      transition: border-color 0.2s, background 0.15s;
+    }
+
+    a:hover {
+      border-bottom-color: #2C9B8F;
+      background: #E4F3F0;
+      border-radius: 2px;
+    }
+
+    /* 特色小标 */
+    .tag {
+      display: inline-block;
+      background: #E2F0ED;
+      color: #0F5349;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+      padding: 0.15rem 0.7rem;
+      border-radius: 40px;
+      margin-right: 0.3rem;
+      border: 1px solid #C5DFD9;
+    }
+
+    .tag-alt {
+      background: #E8F1F8;
+      color: #145D6A;
+      border-color: #C1D8E3;
+    }
+
+    .accent-badge {
+      background: #2C9B8F;
+      color: white;
+      font-size: 0.65rem;
+      padding: 0.1rem 0.7rem;
+      border-radius: 100px;
+      margin-left: 0.4rem;
+      font-weight: 500;
+      letter-spacing: 0.2px;
+    }
+
+    /* 提示区块 */
+    .notice-box {
+      background: #EAF6F3;
+      border-radius: 18px;
+      padding: 1.2rem 1.4rem;
+      border-left: 5px solid #2C9B8F;
+      margin: 1.8rem 0 2rem;
+      color: #124F4A;
+    }
+
+    .notice-box strong {
+      color: #09443C;
+    }
+
+    .faq-item {
+      margin-bottom: 1rem;
+    }
+
+    .faq-item summary {
+      font-weight: 500;
+      cursor: pointer;
+      padding: 0.2rem 0;
+      color: #1C5A55;
+    }
+
+    .faq-item p {
+      margin-top: 0.5rem;
+      color: #2F4D58;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid #D2E2E9;
+      margin: 1.8rem 0;
+    }
+
+    .footer-note {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #617F8B;
+      padding-top: 0.8rem;
+      border-top: 1px solid #DCECF2;
+    }
+
+    .inline-highlight {
+      background: #EDF8F5;
+      border-radius: 6px;
+      padding: 0.05rem 0.4rem;
+      color: #115A4E;
+      font-weight: 450;
+    }
+
+    .btn-outline {
+      display: inline-block;
+      border: 1.5px solid #2C9B8F;
+      color: #1A7A6E;
+      background: transparent;
+      padding: 0.35rem 1rem;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      transition: 0.15s;
+      text-decoration: none;
+      border-bottom: 1.5px solid #2C9B8F;
+    }
+
+    .btn-outline:hover {
+      background: #2C9B8F;
+      color: white;
+      border-color: #2C9B8F;
+    }
+
+    /* 移动端微调 */
+    @media (max-width: 480px) {
+      body { padding: 1rem 0.9rem; }
+      h1 { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO / 标题区 -->
+  <header>
+    <h1>乐彩 · 知识库</h1>
+    <div class="subhead">
+      围绕信息聚合与用途识别，帮助访客快速理解 <a href="https://cnzh-lecai.com">乐彩</a> 的核心定位与内容边界。
+    </div>
+  </header>
+
+  <!-- 说明区：定位与背景 -->
+  <section>
+    <p>
+      <span class="tag">内容索引</span><span class="tag tag-alt">实用参考</span>
+      如果你初次接触这个站点，会好奇它到底提供什么——这很正常。<strong>乐彩</strong> 本身并非单一功能工具，而是一个围绕特定主题搭建的资讯与资源集合。经过持续整理，站点将零散的信息梳理为可浏览的模块，让查找与理解更加直接。
+    </p>
+    <p>
+      从分类逻辑来看，<a href="https://cnzh-lecai.com">乐彩</a> 的内容偏向知识型与说明型，强调对相关领域的基础概念、常见问题与背景的梳理，而非即时数据或交易。你可以把它看作一个<a class="inline-highlight">小型专题百科</a>的入口——目标是降低信息门槛，而不是制造复杂。
+    </p>
+  </section>
+
+  <!-- 网格卡片：目录感布局（特点 + 场景） -->
+  <div class="grid">
+    <div class="card">
+      <h2>特点摘要</h2>
+      <ul style="list-style: none; padding-left: 0;">
+        <li style="margin-bottom: 0.6rem;">✓ 结构化条目与分类，便于按需浏览</li>
+        <li style="margin-bottom: 0.6rem;">✓ 偏重解释性与背景说明，减少术语隔阂</li>
+        <li style="margin-bottom: 0.6rem;">✓ 持续整合公开可用的参考资源</li>
+        <li style="margin-bottom: 0.6rem;">✓ 页面布局注重阅读连续性与区块划分</li>
+      </ul>
+      <div style="margin-top: 0.6rem;">
+        <span class="tag">可导航</span>
+        <span class="tag tag-alt">条目式</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>适用场景</h2>
+      <p>当你希望快速了解某一主题的来龙去脉、对比不同说法、查找基础解释时，<a href="https://cnzh-lecai.com">乐彩</a> 可以作为第一站。尤其适合以下情况：</p>
+      <ul style="padding-left: 1.2rem; margin-top: 0.2rem;">
+        <li>想理清概念关系，而非获取紧急数据</li>
+        <li>需要一份整理好的参考清单或常见问题</li>
+        <li>对内容背景有好奇，希望获得上下文</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 提示区：使用建议 -->
+  <div class="notice-box">
+    <strong>📌 使用提示</strong>  
+    因为站点定位为<strong>知识入口</strong>，部分页面会列出延伸阅读或外部引用。如果你在寻找非常具体的最新动态，建议同时参考原始来源。<a href="https://cnzh-lecai.com">乐彩</a> 更适合作为理解框架的起点，而不是唯一终点。
+  </div>
+
+  <!-- 相关信息区：FAQ 摘要 + 额外卡片 -->
+  <h2 style="margin-top: 1.2rem;">常见方向摘要</h2>
+  <div class="grid grid-3" style="margin-top: 0.5rem;">
+    <div class="card" style="padding: 1.2rem;">
+      <h3 style="margin-top: 0;">📂 分类导航</h3>
+      <p style="font-size: 0.9rem;">按主题分组，每类包含说明与关联条目。适合从头探索。</p>
+      <span class="tag">目录</span>
+    </div>
+    <div class="card" style="padding: 1.2rem;">
+      <h3 style="margin-top: 0;">❓ 常见疑问</h3>
+      <p style="font-size: 0.9rem;">汇集典型问题与简洁回答，帮助快速消除疑惑。</p>
+      <span class="tag">FAQ</span>
+    </div>
+    <div class="card" style="padding: 1.2rem;">
+      <h3 style="margin-top: 0;">🔗 相关参考</h3>
+      <p style="font-size: 0.9rem;">外部资料与延伸阅读，注意核对时效与出处。</p>
+      <span class="tag">链接集</span>
+    </div>
+  </div>
+
+  <!-- FAQ 摘要（可折叠） -->
+  <details class="faq-item" style="margin-top: 1.8rem;">
+    <summary><strong>FAQ 选摘 · 关于乐彩的定位</strong></summary>
+    <div style="margin-top: 0.4rem;">
+      <p><strong>Q：这是一个论坛或社区吗？</strong><br>
+      不完全是。站点以知识条目和说明性文章为主，交互功能有限，侧重阅读而非讨论。</p>
+      <p><strong>Q：内容更新频率如何？</strong><br>
+      内容会阶段性整理与补充，但并非实时流式更新。适合需要稳定参考的用户。</p>
+      <p><strong>Q：我可以直接引用站内信息吗？</strong><br>
+      建议核对原文上下文，并根据需要追溯原始出处。站点内部分内容属于汇编性质。</p>
+    </div>
+  </details>
+
+  <hr>
+
+  <!-- 总结与再次链接（嵌入句子） -->
+  <p style="font-size: 0.95rem;">
+    综合来看，如果你希望获得一个清晰、克制的信息聚合起点，<a href="https://cnzh-lecai.com">乐彩</a> 提供的正是这样一种经过整理的目录式知识结构。每项内容都围绕“帮助用户更快识别用途”来组织，减少盲目跳转的负担。
+  </p>
+  <p style="font-size: 0.95rem;">
+    你可以将当前页面视为一份快速参照，也可以直接进入 <a href="https://cnzh-lecai.com">乐彩</a> 的主分类开始浏览。保持好奇，但也保持审慎——对于任何专题，交叉验证总是有益的。
+  </p>
+
+  <!-- 极简脚注 -->
+  <div class="footer-note">
+    <span>知识库索引 · 蓝绿色卡片版</span><br>
+    <span style="display: inline-block; margin-top: 0.3rem; opacity: 0.6;">更新于近期 · 内容方向随整理迭代</span>
+  </div>
+
+  <!-- 隐含种子标记（仅用于变化，不出现在视觉上） -->
+  <div style="display: none;">e5970ddc01f4af03</div>
+
+</body>
+</html>
